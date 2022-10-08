@@ -38,6 +38,7 @@ services:
       - ENABLE_ES=true
       - ES_SEEDS=elasticsearch
       - ES_VERSION=v7
+      - PROMETHEUS_ENDPOINT=0.0.0.0:9090
     image: temporalio/auto-setup:${TEMPORAL_VERSION}
     networks:
       - temporal-network
@@ -98,6 +99,15 @@ services:
       - type: bind
         source: ./deployment/grafana/provisioning/datasources
         target: /etc/grafana/provisioning/datasources
+      - type: bind
+        source: ./deployment/grafana/provisioning/dashboards
+        target: /etc/grafana/provisioning/dashboards
+      - type: bind
+        source: ./deployment/grafana/dashboard
+        target: /var/lib/grafana/dashboards
+      - type: bind
+        source: ./deployment/grafana/config.ini
+        target: /etc/grafana/config.ini
   prometheus:
     user: root
     container_name: temporal-prometheus
