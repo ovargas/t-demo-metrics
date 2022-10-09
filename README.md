@@ -34,6 +34,18 @@ To create workflows execute
 go run ./scripts/dummy/main.go
 ```
 
+Make the workflow finish as failed.
+
+```shell
+go run ./scripts/dummy/main.go -payload=fail
+```
+
+Make the workflow to panic.
+
+```shell
+go run ./scripts/dummy/main.go -payload=panic
+```
+
 ### Tested environment
 
 * macOS 12.6 with M1 processor

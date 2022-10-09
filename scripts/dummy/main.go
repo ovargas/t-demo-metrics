@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"go.temporal.io/sdk/client"
 	"log"
@@ -9,6 +10,10 @@ import (
 )
 
 func main() {
+
+	payload := flag.String("payload", "", "a string")
+	flag.Parse()
+
 	c, err := client.Dial(client.Options{})
 	if err != nil {
 		log.Fatal("Unable to create client", err)
@@ -18,7 +23,7 @@ func main() {
 		client.StartWorkflowOptions{
 			TaskQueue: "dummy",
 		},
-		dummy.Dummy, "")
+		dummy.Dummy, *payload)
 
 	fmt.Printf("%s", wr.GetID())
 }

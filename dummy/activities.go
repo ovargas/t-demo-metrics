@@ -12,6 +12,11 @@ type Activities struct{}
 
 func (*Activities) ActivityA(ctx context.Context, payload string) (string, error) {
 	simProcess(10)
+
+	if payload == "fail" {
+		return "", ErrUpsIAteABug
+	}
+
 	return fmt.Sprintf("activity-a-%s-%s-%d", payload, activity.GetInfo(ctx).WorkflowExecution.RunID, time.Now().UnixMilli()), nil
 }
 
